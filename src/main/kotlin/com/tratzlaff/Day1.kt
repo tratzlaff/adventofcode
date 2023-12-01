@@ -1005,6 +1005,7 @@ fun main() {
         1eightcrcjcbdthreebscfpvznqfrj6
     """.trimIndent()
     println(day.solvePart1(input))
+    println(day.solvePart2(input))
 }
 
 /**
@@ -1013,10 +1014,49 @@ fun main() {
 class Day1 {
 
     fun solvePart1(input: String) = input.lines().sumOf { it.getTwoDigitNumber() }
+    fun solvePart2(input: String) = input.lines().sumOf { it.getTwoDigitNumberFancy() }
 
     private fun String.getTwoDigitNumber(): Int {
         val first = this.first { it.isDigit() }
         val last = this.last { it.isDigit() }
         return "$first$last".toInt()
+    }
+
+    private fun String.getTwoDigitNumberFancy(): Int {
+        val wordToNum = mapOf(
+            "one" to 1,
+            "two" to 2,
+            "three" to 3,
+            "four" to 4,
+            "five" to 5,
+            "six" to 6,
+            "seven" to 7,
+            "eight" to 8,
+            "nine" to 9
+        )
+
+        val firstNumWord = wordToNum.keys.mapNotNull { word ->
+            val startIndex = this.indexOf(word)
+            if(startIndex < 0) null else Pair(word, startIndex)
+        }.minByOrNull { it.second }
+
+        val firstDigitIndex = this.indexOfFirst { it.isDigit() }
+
+        val firstDigit = if(firstDigitIndex < 0 || firstNumWord != null && firstNumWord.second < firstDigitIndex) {
+            wordToNum[firstNumWord!!.first]!!
+        } else this[firstDigitIndex].digitToInt()
+
+        val lastNumWord = wordToNum.keys.mapNotNull { word ->
+            val startIndex = this.lastIndexOf(word)
+            if(startIndex < 0) null else Pair(word, startIndex)
+        }.maxByOrNull { it.second }
+
+        val lastDigitIndex = this.indexOfLast { it.isDigit() }
+
+        val lastDigit = if(lastDigitIndex < 0 || lastNumWord != null && lastNumWord.second > lastDigitIndex) {
+            wordToNum[lastNumWord!!.first]!!
+        } else this[lastDigitIndex].digitToInt()
+
+        return "$firstDigit$lastDigit".toInt()
     }
 }

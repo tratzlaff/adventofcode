@@ -6,7 +6,7 @@ import kotlin.streams.asStream
 fun main() {
     val day = Day5()
     println("Part 1: "+day.solvePart1(readLines("day5.txt")))
-    println("Part 1: "+day.solvePart2(readLines("day5.txt")))
+    println("Part 2: "+day.solvePart2(readLines("day5.txt")))
 }
 
 // https://adventofcode.com/2023/day/5

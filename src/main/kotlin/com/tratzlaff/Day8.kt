@@ -53,16 +53,8 @@ class Day8{
         for (startNode in startingNodes) {
             var currentNode = startNode
             var steps = 0L
-            val visited = mutableSetOf<String>()
 
             while (!currentNode.endsWith("Z")) {
-                // If the current node has been visited before, clear the visited set.
-                // This allows for paths that revisit nodes but eventually lead to 'Z'.
-                if (visited.contains(currentNode)) {
-                    visited.clear()
-                }
-                visited.add(currentNode)
-
                 // Get the next instruction and move to the next node accordingly
                 val instruction = instructions[(steps % instructions.length).toInt()]
                 currentNode = when(instruction) {

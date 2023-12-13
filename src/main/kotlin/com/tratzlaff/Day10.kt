@@ -171,12 +171,10 @@ class Day10 {
     }
 
     private fun List<String>.count(loop: List<Pair<Int, Int>>): Int {
-        println(loop)
         var enclosed = 0
         this.forEachIndexed { row, line ->
             line.forEachIndexed { col, char ->
                 if(char != 'X' && loop.none { it.first == row && it.second == col }) {
-                    println("row: $row, col: $col, char: $char")
                     enclosed++
                 }
 
@@ -216,7 +214,6 @@ class Day10 {
         while(true) {
             val previousRowIndex = loop.last().first
             val previousColIndex = loop.last().second
-            //println("${lines[previousRowIndex][previousColIndex]}, previousRowIndex: $previousRowIndex, previousColIndex: $previousColIndex")
             when (val previousPipe = lines[previousRowIndex][previousColIndex]) {
                 '7' -> {
                     val south = Pair(previousRowIndex + 2, previousColIndex)
